@@ -5,8 +5,7 @@ from flask import Flask, render_template_string, request,render_template,session
 app = Flask(__name__)
 app.secret_key = 'key'
 
-API_KEY = ""
-
+API_KEY = "DEMO-API-KEY"
 
 @app.route('/')
 def home():
