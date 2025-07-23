@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Random Cat</title>
+</head>
+<body>
+    <h1>Random Cat</h1>
+
+    <div class="image-wrapper">
+        <img src="{{ image_url }}" alt="Random Cat" id="cat-image" />
+        <div id="heart-feedback">❤️</div>
+    </div>
+
+    <div class="buttons">
+        <form id="like-form">
+            <input type="hidden" name="image_url" value="{{ image_url }}" />
+            <button type="button" id="like-button">❤️ Like</button>
+        </form>
+
+        <form method="get" action="/">
+            <button type="submit">Next</button>
+        </form>
+        <a href="/gallery" class="gallery-link">View Gallery</a>
+    </div>
+
+    <script>
+        const likeBtn = document.getElementById('like-button');
+        const heart = document.getElementById('heart-feedback');
+
+        likeBtn.addEventListener('click', () => {
+            if (likeBtn.classList.contains('liked')) return; // prevent multiple likes
+
+            const form = document.getElementById('like-form');
+            const imageUrl = form.querySelector('input[name="image_url"]').value;
+
+            fetch('/like', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({ image_url: imageUrl })
+            })
+            .then(() => {
+                // Show heart animation in middle of image
+                heart.style.display = 'block';
+                heart.style.animation = 'pop-heart 1s forwards';
+
+                setTimeout(() => {
+                    heart.style.display = 'none';
+                }, 1000);
+
+                // Change button style to show liked
+                likeBtn.classList.add('liked');
+                likeBtn.textContent = '❤️ Liked';
+                likeBtn.disabled = true;
+            })
+            .catch(console.error);
+        });
+    </script>
+</body>
+</html>

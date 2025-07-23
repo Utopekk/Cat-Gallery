@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <title>Your Liked Cats</title>
+</head>
+<body>
+  <h1>Your Liked Cats 🐱❤️</h1>
+  <div class="gallery">
+    {% if liked_cats %}
+      {% for cat in liked_cats %}
+        <img src="{{ cat }}" alt="Liked Cat">
+      {% endfor %}
+    {% else %}
+      <p>No cats liked yet!</p>
+    {% endif %}
+  </div>
+  <a href="/" class="back-home">⬅ Back</a>
+</body>
+</html>
