@@ -3,9 +3,9 @@ from flask import Flask, render_template_string, request,render_template,session
 
 
 app = Flask(__name__)
-app.secret_key = 'supersecretkey123'
+app.secret_key = 'key'
 
-API_KEY = "live_3MA24M2bQMEJp6JmePl5ROMakFkJb1jica2aToUcHLctf1hgeElpnbHmNKvJEhG4"
+API_KEY = ""
 
 
 @app.route('/')
